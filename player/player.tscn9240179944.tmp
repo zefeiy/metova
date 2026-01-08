@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bro6xark72sol"]
+[gd_scene load_steps=9 format=3 uid="uid://bro6xark72sol"]
 
 [ext_resource type="Script" uid="uid://tluppmlhmie1" path="res://player/scripts/player.gd" id="1_oul6g"]
 [ext_resource type="Script" uid="uid://dw24rl5t8mftl" path="res://player/states/idle.gd" id="2_g1dw6"]
@@ -13,12 +13,7 @@ size = Vector2(18, 48)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oul6g"]
 size = Vector2(16, 46)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g6k8r"]
-size = Vector2(16, 46)
-
 [node name="Player" type="CharacterBody2D"]
-collision_layer = 0
-collision_mask = 3
 script = ExtResource("1_oul6g")
 
 [node name="States" type="Node" parent="."]
@@ -48,15 +43,9 @@ script = ExtResource("6_g6k8r")
 position = Vector2(0, -24)
 texture = SubResource("PlaceholderTexture2D_kqu6x")
 
-[node name="CollisionShapestatnd" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -24)
 shape = SubResource("RectangleShape2D_oul6g")
-
-[node name="CollisionShapecrouch" type="CollisionShape2D" parent="."]
-position = Vector2(0, -15)
-scale = Vector2(1, 0.625)
-shape = SubResource("RectangleShape2D_g6k8r")
-disabled = true
 
 [node name="Label" type="Label" parent="."]
 offset_left = -37.0
@@ -66,8 +55,3 @@ offset_bottom = -52.0
 theme_override_font_sizes/font_size = 13
 text = "label"
 horizontal_alignment = 1
-
-[node name="OneWayPlatformRayCast" type="RayCast2D" parent="."]
-target_position = Vector2(0, 4)
-collision_mask = 2
-hit_from_inside = true

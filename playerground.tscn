@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bro6xark72sol" path="res://player/player.tscn" id="1_3m7wi"]
 
 [sub_resource type="Gradient" id="Gradient_iwmwt"]
-offsets = PackedFloat32Array(0.43333334)
+offsets = PackedFloat32Array(0.46249998)
 colors = PackedColorArray(0.00035375668, 1.784927e-08, 0.0002675308, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_3m7wi"]
@@ -35,6 +35,30 @@ texture = SubResource("GradientTexture2D_3m7wi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D2/StaticBody2D"]
 shape = SubResource("RectangleShape2D_q3fau")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(377.62503, 212.00002)
+scale = Vector2(1.8984361, 1.828125)
+texture = SubResource("GradientTexture2D_3m7wi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2D3"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D3/StaticBody2D"]
+shape = SubResource("RectangleShape2D_q3fau")
+
+[node name="OneWayPlatform" type="Sprite2D" parent="."]
+position = Vector2(215.00002, 164.6875)
+scale = Vector2(3.0742178, 0.45703068)
+texture = SubResource("GradientTexture2D_3m7wi")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="OneWayPlatform"]
+collision_layer = 2
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OneWayPlatform/StaticBody2D"]
+scale = Vector2(1, 0.99999994)
+shape = SubResource("RectangleShape2D_q3fau")
+one_way_collision = true
 
 [node name="Player" parent="." instance=ExtResource("1_3m7wi")]
 position = Vector2(218, 125)
