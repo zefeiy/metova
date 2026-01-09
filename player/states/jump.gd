@@ -9,6 +9,8 @@ func init() -> void:
 	
 func entry() -> void:
 	player.velocity.y = -jump_velocity
+	player.animation_player.play("jump")
+	player.animation_player.pause()
 	pass
 	
 func exit()-> void:
@@ -22,6 +24,8 @@ func handle_input( _event : InputEvent )-> PlayerState:
 
 
 func process(delta: float) -> PlayerState:
+	set_jump_frame()
+	
 	return next_state
 	
 func physics_process(delta: float) -> PlayerState:
@@ -32,3 +36,9 @@ func physics_process(delta: float) -> PlayerState:
 		
 	player.velocity.x = player.direction.x * player.move_speed
 	return next_state
+
+
+func set_jump_frame() -> void:
+	var frame = remap(player.velocity.y, -jump_velocity, 0, 0.0, 0.5)
+	player.animation_player.seek(frame, true)
+	pass

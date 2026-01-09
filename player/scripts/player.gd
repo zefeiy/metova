@@ -3,6 +3,7 @@ class_name Player extends CharacterBody2D
 
 #region /// export Variables
 @export var move_speed : float = 150
+@export var max_fall_velocity = 600.0
 #endregion
 
 #region /// State Machine Variables
@@ -21,7 +22,9 @@ var gravity_mulitplier : float = 1.0
 @onready var sprite_2d: Sprite2D = $Sprite2D
 @onready var collision_shapestatnd: CollisionShape2D = $CollisionShapestatnd
 @onready var collision_shapecrouch: CollisionShape2D = $CollisionShapecrouch
-@onready var one_way_platform_ray_cast: RayCast2D = $OneWayPlatformRayCast
+#@onready var one_way_platform_ray_cast: RayCast2D = $OneWayPlatformRayCast
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var one_way_platform_rectangle_ray_cast: ShapeCast2D = $OneWayPlatformRectangleRayCast
 
 #endregion
 
@@ -29,6 +32,7 @@ var gravity_mulitplier : float = 1.0
 func _ready() -> void:
 	# initil
 	initialize_states()
+	#Engine.time_scale = 0.5
 	pass
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -43,6 +47,7 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta * gravity_mulitplier
+	velocity.y = clampf(velocity.y, -1000.0, max_fall_velocity)
 	move_and_slide()
 	change_state( current_state.physics_process( delta ))
 	pass
@@ -84,4 +89,11 @@ func change_state( new_state : PlayerState ) -> void:
 func update_direction() -> void:
 	var pre_direction : Vector2 = direction
 	direction = Input.get_vector("left", "right", "up", "down")
+	if pre_direction.x != direction.x:
+		if direction.x > 0:
+			sprite_2d.flip_h = false
+		elif direction.x < 0:
+			sprite_2d.flip_h = true
+			
+	
 	pass

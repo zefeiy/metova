@@ -18,12 +18,14 @@ func entry() -> void:
 		coyote_timer = 0
 	else:
 		coyote_timer = coyote_time
+	player.animation_player.play("jump")
+	player.animation_player.pause()	
 	pass
 	
 func exit()-> void:
 	player.gravity_mulitplier = 1.0
 	pass
-	
+	 
 func handle_input( _event : InputEvent )-> PlayerState:
 	if _event.is_action_pressed("up") and coyote_timer > 0:
 		return jump
@@ -36,13 +38,20 @@ func handle_input( _event : InputEvent )-> PlayerState:
 func process(delta: float) -> PlayerState:
 	coyote_timer-=delta
 	jump_buffer_timer-=delta
+	set_jump_frame()
 	return next_state
 	
 func physics_process(delta: float) -> PlayerState:
 	if player.is_on_floor():
-		if jump_buffer_timer > 0:
+		if jump_buffer_timer > 0 and Input.is_action_pressed("up"):
 			return jump
 		return idle
 		
 	player.velocity.x = player.direction.x * player.move_speed
 	return next_state
+	
+	
+func set_jump_frame() -> void:
+	var frame = remap(player.velocity.y, 0, player.max_fall_velocity, 0.5, 1.0)
+	player.animation_player.seek(frame, true)
+	pass

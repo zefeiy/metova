@@ -10,20 +10,18 @@ func init() -> void:
 func entry() -> void:
 	player.collision_shapestatnd.disabled = true
 	player.collision_shapecrouch.disabled = false
-	player.sprite_2d.scale.y = 0.625
-	player.sprite_2d.position.y = -15.0
+	player.animation_player.play("crouch")
 	pass
 	
 func exit()-> void:
 	player.collision_shapestatnd.disabled = false
 	player.collision_shapecrouch.disabled = true
-	player.sprite_2d.scale.y = 1.0
-	player.sprite_2d.position.y = -24.0
 	pass
 	
 func handle_input( _event : InputEvent )-> PlayerState:
 	if _event.is_action_pressed("up"):
-		if player.one_way_platform_ray_cast.is_colliding() == true:
+		player.one_way_platform_rectangle_ray_cast.force_shapecast_update()
+		if player.one_way_platform_rectangle_ray_cast.is_colliding() == true:
 			player.position.y += 4
 			return fall
 		
