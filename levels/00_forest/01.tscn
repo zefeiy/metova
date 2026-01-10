@@ -1,9 +1,18 @@
-[gd_scene load_steps=3 format=4 uid="uid://8f31k0emtnmp"]
+[gd_scene load_steps=4 format=4 uid="uid://8f31k0emtnmp"]
 
+[ext_resource type="Script" uid="uid://167vbv3xy0lr" path="res://general/scripts/level_bounds.gd" id="1_1pu88"]
 [ext_resource type="TileSet" uid="uid://b0pec4by17dg6" path="res://levels/tilesets/forgotten_forest.tres" id="1_fvrtv"]
 [ext_resource type="PackedScene" uid="uid://bro6xark72sol" path="res://player/player.tscn" id="2_pu3y4"]
 
 [node name="01" type="Node2D"]
+
+[node name="LevelBounds" type="Node2D" parent="."]
+z_index = 256
+position = Vector2(-32, -336)
+script = ExtResource("1_1pu88")
+width = 1312
+height = 622
+metadata/_custom_type_script = "uid://167vbv3xy0lr"
 
 [node name="Player" parent="." instance=ExtResource("2_pu3y4")]
 position = Vector2(93, 171)
